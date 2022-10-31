@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { fontSizes, lineHeights } from '@quimera-ui/tokens';
-import { TextProps, TextColor, TextSizes, SizeBreak } from '.';
+import { TextProps, TextColor, TextSizes, SizeBreak, TextLineHeight } from '.';
 
 const variantsColor = (color: TextColor) => {
   switch (color) {
@@ -30,75 +30,85 @@ const variantsSize = (size: TextSizes | SizeBreak) => {
     case 'xxs':
       return () => css`
         font-size: ${fontSizes.xxs}; /* 0.625rem -> 10px */
-        // line-height: ${lineHeights.base}; /* 1rem -> 16px */
       `;
     case 'xs':
       return () => css`
         font-size: ${fontSizes.xs}; /* 0.75rem -> 12px */
-        // line-height: 1.6rem; /* 1rem -> 16px */
       `;
     case 'sm':
       return () => css`
         font-size: ${fontSizes.sm}; /* 0.875rem -> 14px */
-        // line-height: 2rem; /* 1.25rem -> 20px */
       `;
     case 'md':
       return () => css`
         font-size: ${fontSizes.md}; /* 1rem -> 16px */
-        // line-height: 2.4rem; /* 1.5rem -> 24px */
       `;
     case 'lg':
       return () => css`
         font-size: ${fontSizes.lg}; /* 1.125rem -> 18px */
-        // line-height: 2.8rem; /* 1.75rem -> 28px */
       `;
     case 'xl':
       return () => css`
         font-size: ${fontSizes.sm}; /* 1.25rem -> 20px */
-        // line-height: ${lineHeights.shorter}; /* 1.75rem -> 28px */
       `;
     case '2xl':
       return () => css`
         font-size: ${fontSizes['2xl']}; /* 1.5rem -> 24px */
-        // line-height: ${lineHeights.shorter}; /* 2rem -> 32px */
       `;
     case '3xl':
       return () => css`
         font-size: ${fontSizes['3xl']}; /* 1.875rem -> 30px */
-        // line-height: 3.6rem; /* 2.25rem -> 36px */
       `;
     case '4xl':
       return () => css`
         font-size: ${fontSizes['4xl']}; /* 2.25rem -> 36px */
-        // line-height: 4rem; /* 2.5rem -> 40px */
       `;
     case '5xl':
       return () => css`
         font-size: ${fontSizes['5xl']}; /* 3rem -> 48px */
-        // line-height: 1;
       `;
     case '6xl':
       return () => css`
         font-size: ${fontSizes['6xl']}; /* 3.75rem -> 60px */
-        // line-height: 1;
       `;
     case '7xl':
       return () => css`
         font-size: ${fontSizes['7xl']}; /* 4.5rem -> 72px */
-        // line-height: 1;
       `;
     case '8xl':
       return () => css`
         font-size: ${fontSizes['9xl']}; /* 6rem -> 96px */
-        // line-height: 1;
       `;
     case '9xl':
       return () => css`
         font-size: ${fontSizes['9xl']}; /* 8rem -> 128px */
-        // line-height: 1;
       `;
     default:
       return `font-size: ${size}`;
+  }
+};
+
+const variantsLineHeight = (lineHeight: TextLineHeight) => {
+  switch (lineHeight) {
+    case 'shorter':
+      return () => css`
+        line-height: ${lineHeights.shorter}; /* 0.625rem -> 10px */
+      `;
+    case 'short':
+      return () => css`
+        line-height: ${lineHeights.short}; /* 0.75rem -> 12px */
+      `;
+    case 'base':
+      return () => css`
+        line-height: ${lineHeights.base}; /* 0.875rem -> 14px */
+      `;
+    case 'tall':
+      return () => css`
+        line-height: ${lineHeights.tall}; /* 1rem -> 16px */
+      `;
+
+    default:
+      return `line-height: ${lineHeight}`;
   }
 };
 
@@ -110,6 +120,7 @@ export const Text = styled.p<TextProps>`
     uppercase,
     bold,
     listStyle,
+    lineHeight,
     m,
     mb,
     ml,
@@ -121,13 +132,10 @@ export const Text = styled.p<TextProps>`
   }) => css`
     font-weight: ${bold ? 'bold' : '400'};
     text-transform: ${uppercase ? 'uppercase' : 'none'};
-    text-align: ${
-      textAlign && typeof textAlign === 'object'
-        ? textAlign?.default
-        : textAlign
-    };
+    text-align: ${textAlign && typeof textAlign === 'object'
+      ? textAlign?.default
+      : textAlign};
     list-style: ${listStyle};
-    line-height: ${lineHeights.shorter};
     margin: ${m};
     margin-top: ${mt || my};
     margin-right: ${mr};
@@ -136,28 +144,27 @@ export const Text = styled.p<TextProps>`
     margin-inline-start: ${mx};
     margin-inline-end: ${mx};
 
-    ${
-      size && typeof size === 'object'
-        ? variantsSize(size.default!)
-        : variantsSize(size!)
-    };
+    ${size && typeof size === 'object'
+      ? variantsSize(size.default!)
+      : variantsSize(size!)};
 
     ${variantsColor(color!)};
+    ${variantsLineHeight(lineHeight!)};
 
     @media (max-width: ${theme.breakpoints.md}) {
       // 768px
       ${size && typeof size === 'object' && variantsSize(size.md!)};
-      text-align: ${
-        textAlign && typeof textAlign === 'object' && textAlign?.md
-      };
+      text-align: ${textAlign &&
+      typeof textAlign === 'object' &&
+      textAlign?.md};
     }
 
     @media (max-width: ${theme.breakpoints.sm}) {
       // 640px
       ${size && typeof size === 'object' && variantsSize(size.sm!)};
-      text-align: ${
-        textAlign && typeof textAlign === 'object' && textAlign?.sm
-      };
-
+      text-align: ${textAlign &&
+      typeof textAlign === 'object' &&
+      textAlign?.sm};
+    }
   `}
 `;
