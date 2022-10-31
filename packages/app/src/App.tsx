@@ -1,8 +1,9 @@
-import { Text } from '@quimera-ui/react';
+import { Text, Button } from '@quimera-ui/react';
 
 function App() {
   return (
     <div>
+      <Button>Click</Button>
       <Text color="primary" bold>
         Click on the Vite and React logos to learn more
       </Text>
@@ -13,8 +14,11 @@ function App() {
       >
         Texto
       </Text>
-      <Text size="1rem" color="primary">
-        Texto
+      <Text size="3xl" color="primary">
+        Size
+      </Text>
+      <Text size="1rem" color="primary" lineHeight="base">
+        Texto lineHeight
       </Text>
       <Text size="14px" color="primary">
         Texto

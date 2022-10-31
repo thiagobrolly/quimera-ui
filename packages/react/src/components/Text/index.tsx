@@ -5,7 +5,7 @@ type TextTypes =
   | React.AnchorHTMLAttributes<HTMLAnchorElement>
   | React.HTMLAttributes<HTMLElement>;
 
-enum DesignSystemSizes {
+enum Sizes {
   xxs = 'xxs',
   xs = 'xs',
   sm = 'sm',
@@ -23,7 +23,7 @@ enum DesignSystemSizes {
 }
 
 export type TextSizes =
-  | `${DesignSystemSizes}`
+  | `${Sizes}`
   | `${number}px`
   | `${number}rem`
   | `${number}em`
@@ -40,6 +40,15 @@ type LiteralUnionColors<T extends Colors, U = string> =
 export type TextColor = LiteralUnionColors<
   'primary' | 'black' | 'gray' | 'white'
 >;
+
+export type LineHeight = 'shorter' | 'short' | 'base' | 'tall';
+
+export type TextLineHeight =
+  | `${LineHeight}`
+  | `${number}px`
+  | `${number}rem`
+  | `${number}em`
+  | `${number}%`;
 
 export type TextAlign =
   | 'left'
@@ -66,7 +75,7 @@ export type SizeBreak = {
 export type TextProps = {
   // children?: React.ReactNode | string;
   as?: 'p' | 'span' | 'a' | 'li' | 'em' | 'strong';
-  lineHeight?: string;
+  lineHeight?: TextLineHeight;
   size?: TextSizes | SizeBreak;
   listStyle?: string;
   textAlign?: TextAlign | TextBreak;
@@ -89,7 +98,7 @@ export const Text = ({
   uppercase = false,
   bold = false,
   color = 'black',
-  lineHeight,
+  lineHeight = 'shorter',
   ...props
 }: TextProps) => {
   return (
@@ -106,3 +115,5 @@ export const Text = ({
     </S.Text>
   );
 };
+
+Text.displayName = 'Text';
