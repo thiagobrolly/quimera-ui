@@ -74,8 +74,9 @@ export const colors = {
   gray_100: '#3A3A3C',
   gray_110: '#2C2C2E',
   gray_120: '#1C1C1E',
-  neutral_white: '#ffffff',
-  neutral_black: '#000000',
+
+  neutral100: '#ffffff',
+  neutral900: '#000000',
 
   aside: '#F6F9FC',
   content: '#ffffff',

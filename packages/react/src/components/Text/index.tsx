@@ -58,27 +58,27 @@ export type TextAlign =
   | 'start'
   | 'end';
 
-export type TextBreak = {
+export type ITextAlign = {
   default?: TextAlign;
   sm?: TextAlign;
   md?: TextAlign;
   xl?: TextAlign;
 };
 
-export type SizeBreak = {
+export interface ITextSizes {
   default?: TextSizes;
   sm?: TextSizes;
   md?: TextSizes;
   xl?: TextSizes;
-};
+}
 
 export type TextProps = {
   // children?: React.ReactNode | string;
   as?: 'p' | 'span' | 'a' | 'li' | 'em' | 'strong';
   lineHeight?: TextLineHeight;
-  size?: TextSizes | SizeBreak;
+  size?: TextSizes | ITextSizes;
   listStyle?: string;
-  textAlign?: TextAlign | TextBreak;
+  textAlign?: TextAlign | ITextAlign;
   color?: TextColor;
   bold?: boolean;
   uppercase?: boolean;

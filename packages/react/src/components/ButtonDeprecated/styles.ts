@@ -1,6 +1,70 @@
 import styled, { css } from 'styled-components';
 import { shade, lighten, transparentize } from 'polished';
-import { ButtonComponent, ButtonProps, ButtonSize, ISize } from './ButtonComp';
+import { ButtonProps, ButtonSize, ISize } from './index';
+
+const variantSize = (size: ButtonSize | ISize) => {
+  switch (size) {
+    case 'xs':
+      return () => css`
+        ${({ theme }) => css`
+          height: ${theme.space[8]}; // 32px
+          font-size: ${theme.fontSizes.xs};
+          border-radius: ${theme.radii.xs};
+          width: 100%;
+
+          svg {
+            width: ${theme.space[4]};
+          }
+        `}
+      `;
+    case 'sm':
+      return () => css`
+        ${({ theme }) => css`
+          height: ${theme.space[8]}; // 32px
+          font-size: ${theme.fontSizes.xs};
+          border-radius: ${theme.radii.xs};
+
+          svg {
+            width: ${theme.space[4]};
+          }
+        `}
+      `;
+    case 'md':
+      return () => css`
+        ${({ theme }) => css`
+          height: ${theme.space[10]}; // 40px
+          font-size: ${theme.fontSizes.sm};
+
+          svg {
+            width: ${theme.space[5]};
+          }
+        `}
+      `;
+    case 'lg':
+      return () => css`
+        ${({ theme }) => css`
+          height: ${theme.space[12]}; // 48px
+          font-size: ${theme.fontSizes.md};
+
+          svg {
+            width: ${theme.space[6]};
+          }
+        `}
+      `;
+
+    default:
+      return () => css`
+        ${({ theme }) => css`
+          height: ${theme.space[10]}; // 40px
+          font-size: ${theme.fontSizes.sm};
+
+          svg {
+            width: ${theme.space[5]};
+          }
+        `}
+      `;
+  }
+};
 
 const buttonTheme = {
   standard: () => css`
@@ -70,65 +134,38 @@ const buttonTheme = {
   `,
 };
 
-const variantSize = (size: ButtonSize | ISize) => {
-  switch (size) {
-    case 'xs':
-      return () => css`
-        height: 2rem; // 32px
-        font-size: 0.75rem;
-        border-radius: 4px;
-        width: 100%;
+export const ButtonLabel = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+`;
 
-        svg {
-          width: 1rem;
-        }
-      `;
-    case 'sm':
-      return () => css`
-        height: 2rem; // 32px
-        font-size: 0.75rem; // 12px
-        border-radius: 4px;
+export const ButtonLoading = styled.span`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-        svg {
-          width: 1rem;
-        }
-      `;
-    case 'md':
-      return () => css`
-        height: 2.5rem; // 40px
-        font-size: 0.875rem; // 14px
-
-        svg {
-          width: 1.25rem;
-        }
-      `;
-    case 'lg':
-      return () => css`
-        height: 3rem; // 48px
-        font-size: 1rem; // 16px
-
-        svg {
-          width: 1.5rem;
-        }
-      `;
-
-    default:
-      return () => css`
-        height: 2.5rem; // 40px
-        font-size: 0.875rem;
-
-        svg {
-          width: 1.25rem;
-        }
-      `;
+  svg {
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    stroke: currentColor;
+    animation: rotate 2.5s linear infinite;
   }
-};
+`;
 
-export const Button = styled(ButtonComponent)<ButtonProps>`
+export const Button = styled.button<ButtonProps>`
   ${({
-    variant = 'filled',
-    size = 'md',
-    fullSize = false,
+    variant,
+    size,
     m,
     mb,
     ml,
@@ -136,20 +173,24 @@ export const Button = styled(ButtonComponent)<ButtonProps>`
     mt,
     mx,
     my,
+    disabled,
     theme,
+    isLoading,
+    fullSize,
+    as,
   }) => css`
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0px 1rem;
-    font-weight: 500;
+    padding: 0px ${theme.space[4]};
+    font-weight: ${theme.fontWeights.medium};
     text-align: center;
     transition: background 0.3s;
     border: none;
-    border-radius: 6px;
+    border-radius: ${theme.radii.sm};
     text-decoration: none;
-    width: ${fullSize ? '100%' : 'fit-content'};
+    width: fit-content;
     margin: ${m};
     margin-top: ${mt || my};
     margin-right: ${mr};
@@ -159,26 +200,41 @@ export const Button = styled(ButtonComponent)<ButtonProps>`
     margin-inline-end: ${mx};
     cursor: pointer;
 
-    ${variantSize(size!)};
-
     ${buttonTheme[variant!]()}
 
+    ${variantSize(size!)};
+
     svg {
-      @keyframes rotate {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
       fill: currentColor;
-      animation: rotate 2.5s linear infinite;
     }
 
-    &[disabled],
-    :disabled {
+    ${!!fullSize &&
+    css`
+      width: 100%;
+    `}
+
+    ${isLoading &&
+    css`
+      ${ButtonLabel} {
+        visibility: hidden;
+      }
+    `}
+
+    ${!!disabled &&
+    css`
       cursor: not-allowed;
       opacity: 50%;
+
+      span {
+        pointer-events: none;
+      }
+    `}
+
+    ${!!disabled &&
+    as &&
+    css`
       pointer-events: none;
-    }
+    `}
 
     @media (min-width: ${theme.breakpoints['2xl']}) {
       // 1536px

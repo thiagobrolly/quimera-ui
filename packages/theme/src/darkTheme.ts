@@ -1,9 +1,25 @@
-import { colors } from '@quimera-ui/tokens';
+import {
+  darkColors as colors,
+  fonts,
+  breakpoints,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+  radii,
+  space,
+} from '@quimera-ui/tokens';
 
 export const darkTheme = {
   title: 'darkTheme',
 
   colors,
+  fonts,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+  radii,
+  space,
+  breakpoints,
 
   font: {
     family: {
@@ -41,14 +57,6 @@ export const darkTheme = {
     xxlarge: '5.6rem',
   },
 
-  breakpoints: {
-    xmodile: '320px',
-    modile: '480px',
-    tablet: '768px',
-    desktop: '1170px',
-    hd: '1440px',
-  },
-
   layers: {
     hide: -1,
     auto: 'auto',
@@ -76,10 +84,10 @@ export const darkTheme = {
   },
 
   shadow: {
-    base: '0px 1px 2px rgba(0, 0, 0, 0.15), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
-    sm: '0px 1px 2px rgba(0, 0, 0, 0.15), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)',
-    md: '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.15)',
-    lg: '0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.15)',
+    base: '0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
+    sm: '0px 2px 6px 2px rgba(0, 0, 0, 0.15)',
+    md: '0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
+    lg: '0px 6px 10px 4px rgba(0, 0, 0, 0.15)',
   },
 
   opacity: {

@@ -24,8 +24,9 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@quimera-ui/theme": "*",
     "@quimera-ui/tokens": "*",
-    "@quimera-ui/utils": "*",
+    "@radix-ui/react-slot": "^1.0.1",
     "phosphor-react": "^1.4.1",
     "polished": "^4.2.2",
     "styled-components": "^5.3.6"
