@@ -20,8 +20,6 @@
 
 // Button.stories.ts|tsx
 
-import React from 'react';
-
 import { Meta, Story } from '@storybook/react';
 
 import { Button, ButtonProps } from '@quimera-ui/react';
@@ -36,7 +34,6 @@ export default {
     fullSize: false,
     disabled: false,
     isLoading: false,
-    maintainDimentions: false,
   },
   argTypes: {
     variant: {
@@ -44,7 +41,7 @@ export default {
       control: { type: 'radio' },
     },
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
   },

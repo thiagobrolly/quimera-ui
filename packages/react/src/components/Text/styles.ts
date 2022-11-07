@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { fontSizes, lineHeights } from '@quimera-ui/tokens';
-import { TextProps, TextColor, TextSizes, SizeBreak, TextLineHeight } from '.';
+import { TextProps, TextColor, TextSizes, ITextSizes, TextLineHeight } from '.';
 
 const variantsColor = (color: TextColor) => {
   switch (color) {
@@ -10,7 +10,7 @@ const variantsColor = (color: TextColor) => {
       `;
     case 'white':
       return () => css`
-        color: ${({ theme }) => theme.colors.neutral_white};
+        color: ${({ theme }) => theme.colors.neutral100};
       `;
     case 'gray':
       return () => css`
@@ -25,7 +25,7 @@ const variantsColor = (color: TextColor) => {
   }
 };
 
-const variantsSize = (size: TextSizes | SizeBreak) => {
+const variantsSize = (size: TextSizes | ITextSizes) => {
   switch (size) {
     case 'xxs':
       return () => css`
